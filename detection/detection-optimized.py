@@ -7,6 +7,42 @@ import cv2
 import mediapipe as mp
 import numpy as np
 
+from random import choice
+
+temp = True
+
+# letters = [
+#     "A",
+#     "B",
+#     "C",
+#     "D",
+#     "E",
+#     "F",
+#     "G",
+#     "H",
+#     "I",
+#     "J",
+#     "K",
+#     "L",
+#     "M",
+#     "N",
+#     "O",
+#     "p",
+#     "Q",
+#     "R",
+#     "S",
+#     "T",
+#     "U",
+#     "V",
+#     "W",
+#     "X",
+#     "Y",
+#     "Z",
+# ]
+
+letters = ["L", "E"]
+
+
 model_dict = pickle.load(open("./model.p", "rb"))
 model = model_dict["model"]
 mp_hands = mp.solutions.hands
@@ -20,6 +56,12 @@ labels_dict = {0: "G", 1: "U", 2: "E", 3: "L", 4: "P", 5: "H"}
 
 st.title("Sign Language Recognition")
 st.text("Using OpenCV and Streamlit")
+
+if temp:
+    lucky = choice(letters)
+    st.image(f"{lucky}.jpg", width=200)
+    st.text(lucky)
+    temp = False
 
 
 class VideoProcessor:
@@ -68,6 +110,9 @@ class VideoProcessor:
 
             predicted_character = labels_dict[int(prediction[0])]
             print(predicted_character, "is predicted")
+            print("temp from ", temp)
+            if predicted_character == lucky:
+                temp = True
 
             # graphics in the bounding box
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 0), 4)
@@ -86,6 +131,7 @@ class VideoProcessor:
 
 
 # # stream in web
+
 webrtc_streamer(
     key="key",
     video_processor_factory=VideoProcessor,
