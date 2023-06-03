@@ -3,6 +3,7 @@ import "./App.css";
 import signImage from "./images/sign.png";
 import Button from "react-bootstrap/Button";
 import { ArrowDown } from "react-bootstrap-icons";
+import { HashLink as Link } from "react-router-hash-link";
 
 function App() {
   return (
@@ -33,9 +34,9 @@ function App() {
             <ArrowDown className="animate-bounce mt-10 text-7xl" />
             <div className="text-left">
               <a className="mt-5 text-left">
-                <Button href="#nav" size="lg">
-                  Get Started
-                </Button>
+                <Link smooth to="#nav">
+                  <Button size="lg">Get Started</Button>
+                </Link>
               </a>
             </div>
           </div>
@@ -50,9 +51,11 @@ function App() {
                 <div className="aspect-square bg-black justify-center flex items-center p-3 rounded-xl h-full lg:w-[300px]">
                   <div className="flex flex-col gap-2 items-center">
                     <h1 className="tracking-tighter font-bold">Quiz</h1>
-                    <Button className="w-fit animate-wiggle animate-infinite">
-                      Let's Go
-                    </Button>
+                    <a href="#/quiz">
+                      <Button className="w-fit animate-wiggle animate-infinite">
+                        Let's Go
+                      </Button>
+                    </a>
                     <div className="text-base rounded-xl p-3">
                       Test your sign language knowledge with our quiz!
                     </div>
