@@ -11,38 +11,6 @@ from random import choice
 
 temp = True
 
-# letters = [
-#     "A",
-#     "B",
-#     "C",
-#     "D",
-#     "E",
-#     "F",
-#     "G",
-#     "H",
-#     "I",
-#     "J",
-#     "K",
-#     "L",
-#     "M",
-#     "N",
-#     "O",
-#     "p",
-#     "Q",
-#     "R",
-#     "S",
-#     "T",
-#     "U",
-#     "V",
-#     "W",
-#     "X",
-#     "Y",
-#     "Z",
-# ]
-
-letters = ["L", "E"]
-
-
 model_dict = pickle.load(open("./model.p", "rb"))
 model = model_dict["model"]
 mp_hands = mp.solutions.hands
@@ -51,23 +19,41 @@ mp_drawing_styles = mp.solutions.drawing_styles
 
 hands = mp_hands.Hands(static_image_mode=True, min_detection_confidence=0.3)
 
-labels_dict = {0: "G", 1: "U", 2: "E", 3: "L", 4: "P", 5: "H"}
-
+# labels_dict = {0: "G", 1: "U", 2: "E", 3: "L", 4: "P", 5: "H"}
+labels_dict = {
+    0: "A",
+    1: "B",
+    2: "C",
+    3: "D",
+    4: "E",
+    5: "F",
+    6: "G",
+    7: "H",
+    8: "I",
+    9: "K",
+    10: "L",
+    11: "0",
+    12: "U",
+    13: "V",
+    14: "W",
+    15: "Y",
+}
+letters = list(labels_dict.values())
+if temp:
+    lucky = choice(letters)
+    st.image(f"images/{lucky}.png", width=200)
+    st.text(lucky)
+    temp = False
 
 st.title("Sign Language Recognition")
 st.text("Using OpenCV and Streamlit")
-
-if temp:
-    lucky = choice(letters)
-    st.image(f"{lucky}.jpg", width=200)
-    st.text(lucky)
-    temp = False
 
 
 class VideoProcessor:
     def recv(self, frame):
         frame = frame.to_ndarray(format="bgr24")
 
+        global lucky, temp
         # Process the frame here.
 
         data_aux = []
@@ -110,9 +96,6 @@ class VideoProcessor:
 
             predicted_character = labels_dict[int(prediction[0])]
             print(predicted_character, "is predicted")
-            print("temp from ", temp)
-            if predicted_character == lucky:
-                temp = True
 
             # graphics in the bounding box
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 0), 4)
@@ -126,6 +109,9 @@ class VideoProcessor:
                 3,
                 cv2.LINE_AA,
             )
+
+        if predicted_character == lucky:
+            temp = True
 
         return av.VideoFrame.from_ndarray(frame, format="bgr24")
 
