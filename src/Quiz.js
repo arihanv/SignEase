@@ -38,7 +38,7 @@ function Quiz() {
       <header className="App-header p-10 lg:px-20">
         <div className="h-[100vh] flex flex-col justify-center gap-4">
         <div className="flex flex-col gap-2 items-center">
-            <a href="/" style={{all:"unset"}}>
+            <a href="#/" style={{all:"unset"}}>
             <div className="text-lg rounded-xl bg-gray-800 px-2 py-0.5 w-fit tracking-tight cursor-pointer">
 Go Back To Home Page
             </div>
