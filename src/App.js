@@ -66,9 +66,11 @@ function App() {
                 <div className="aspect-square bg-black justify-center flex items-center p-3 rounded-xl h-full lg:w-[300px]">
                   <div className="flex flex-col gap-2 items-center">
                     <h1 className="tracking-tighter font-bold">Learn</h1>
+                  <a href="https://rabibasukala01-streamlit-test-detection-mmoi1t.streamlit.app/">
                     <Button className="w-fit animate-wiggle animate-infinite">
                       Let's Go
                     </Button>
+                   </a>
                     <div className="text-base rounded-xl p-3">
                       Learn Sign Language through our machine learning model
                     </div>
